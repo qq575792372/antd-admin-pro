@@ -2,7 +2,7 @@ const Mock = require("mockjs");
 const { param2Obj } = require("./utils");
 
 // 引入mock数据的js
-const user = require("./data/user.js");
+const user = require("./data/user");
 // tools
 
 // 这里声明引入一下
@@ -45,7 +45,11 @@ function mockXHR() {
   }
 
   for (const i of mocks) {
-    Mock.mock(new RegExp(i.url), i.type || "get", XHR2ExpressReqWrap(i.response));
+    Mock.mock(
+      new RegExp(i.url),
+      i.type || "get",
+      XHR2ExpressReqWrap(i.response)
+    );
   }
 }
 

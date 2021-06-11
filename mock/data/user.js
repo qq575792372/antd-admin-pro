@@ -1,5 +1,5 @@
 const Mock = require("mockjs");
-const util = require("../../utils");
+const util = require("../utils");
 
 // mock生成列表元数据
 const mockData = Mock.mock({

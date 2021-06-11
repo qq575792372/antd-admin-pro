@@ -95,16 +95,16 @@ module.exports = {
       .end();
 
     // 这里要设置 whitespace="preserve"，不然编译后会把 &nbsp; 符号去掉
-    config.module
-      .rule("vue")
-      .use("vue-loader")
-      .loader("vue-loader")
-      .tap((options) => {
-        options.compilerOptions.whitespace = "preserve";
-        options.compilerOptions.preserveWhitespace = true;
-        return options;
-      })
-      .end();
+    // config.module
+    //   .rule("vue")
+    //   .use("vue-loader")
+    //   .loader("vue-loader")
+    //   .tap((options) => {
+    //     options.compilerOptions.whitespace = "preserve";
+    //     options.compilerOptions.preserveWhitespace = true;
+    //     return options;
+    //   })
+    //   .end();
 
     // is development
     config

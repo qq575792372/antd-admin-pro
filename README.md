@@ -2,7 +2,7 @@
 
 ```bash
 # 克隆项目
-git clone http://119.23.220.221:10080/frontend/vue_antd_template.git
+git clone https://gitee.com/qq1020431880/vue_antd_template.git
 
 # 进入项目目录
 cd vue_antd_template

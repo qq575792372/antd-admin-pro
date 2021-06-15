@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-const name = defaultSettings.title || "vue antd design Admin Template"; // page title
+const name = defaultSettings.title || "vue Antd Admin Template"; // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -25,7 +25,7 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
 
-  // publicPath: '/vue_antd_template', // 如果需要配置访问前缀，需要加上名称
+  // publicPath: '/vue-antd-admin', // 如果需要配置访问前缀，需要加上名称
   publicPath: "/",
   outputDir: "dist",
   assetsDir: "static",
@@ -94,22 +94,12 @@ module.exports = {
       })
       .end();
 
-    // 这里要设置 whitespace="preserve"，不然编译后会把 &nbsp; 符号去掉
-    // config.module
-    //   .rule("vue")
-    //   .use("vue-loader")
-    //   .loader("vue-loader")
-    //   .tap((options) => {
-    //     options.compilerOptions.whitespace = "preserve";
-    //     options.compilerOptions.preserveWhitespace = true;
-    //     return options;
-    //   })
-    //   .end();
-
     // is development
     config
       // https://webpack.js.org/configuration/devtool/#development
-      .when(process.env.NODE_ENV === "development", (config) => config.devtool("cheap-source-map"));
+      .when(process.env.NODE_ENV === "development", (config) =>
+        config.devtool("cheap-source-map")
+      );
 
     // not development
     config.when(process.env.NODE_ENV !== "development", (config) => {

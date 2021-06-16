@@ -1,7 +1,7 @@
 {
   "name": "vue-antd-admin",
   "version": "1.0.0",
-  "description": "A vue andt design template",
+  "description": "A ant vue design template",
   "author": "Gaoshiwei <1020431880@qq.com>",
   "scripts": {
     "start": "npm run dev",

@@ -20,7 +20,7 @@ npm run dev
 npm start
 ```
 
-服务启动成功后，浏览器访问 [http://localhost:9520](http://localhost:9520)
+服务启动成功后，浏览器访问 [http://localhost:9000](http://localhost:9000)
 
 
 ## 环境

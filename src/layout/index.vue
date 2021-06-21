@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <!-- <div class="app-wrapper">
     <Sidebar />
     <div class="main-container">
       <div :class="{ 'fixed-header': fixedHeader }">
@@ -7,7 +7,21 @@
       </div>
       <AppMain />
     </div>
-  </div>
+  </div> -->
+
+  <a-layout class="app-wrapper">
+    <a-layout-sider :trigger="null" collapsible>
+      <Sidebar />
+    </a-layout-sider>
+    <a-layout>
+      <a-layout-header>
+        <Navbar />
+      </a-layout-header>
+      <a-layout-content>
+        <AppMain />
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
 </template>
 <script>
 import { Navbar, Sidebar, AppMain } from "./components";
@@ -16,14 +30,19 @@ export default {
   components: {
     Navbar,
     Sidebar,
-    AppMain,
+    AppMain
   },
   computed: {
     fixedHeader() {
       return false;
-    },
+    }
   },
-  created() {},
+  data() {
+    return {
+      collapsed: true
+    };
+  },
+  created() {}
 };
 </script>
 <style lang="less" scoped>
@@ -34,5 +53,9 @@ export default {
 }
 .main-container {
   margin-left: 210px;
+}
+.ant-layout-header {
+  background: #fff;
+  min-height: 50px;
 }
 </style>

@@ -1,18 +1,21 @@
-import Vue from "vue"
-import Vuex from "vuex"
+import Vue from "vue";
+import Vuex from "vuex";
 // getters
-import getters from './getters'
+import getters from "./getters";
 // modules
-import user from './modules/user'
+import user from "./modules/user";
+import permission from "./modules/permission";
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  strict: process.env.NODE_ENV !== 'production',
+  strict: false,
   modules: {
     user,
+    permission
   },
   getters
-})
+});
 
 // export store
-export default store
+export default store;

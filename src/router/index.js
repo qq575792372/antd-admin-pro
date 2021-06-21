@@ -1,20 +1,42 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import Router from "vue-router";
 
 // 防止点击同一个路由时候报错
-const routerPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return routerPush.call(this, location).catch(error => error);
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
 };
 
-// use vue-router
-Vue.use(VueRouter);
+Vue.use(Router);
 
 /* Layout */
 import Layout from "@/layout";
 
-// constantRoutes
-const constantRoutes = [
+/**
+ * Note: sub-menu only appear when route children.length >= 1
+ * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ *
+ * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu
+ *                                if not set alwaysShow, when item has more than one children route,
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
+    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
+    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+  }
+ */
+
+/**
+ * constantRoutes
+ * a base page that does not have permission requirements
+ * all roles can be accessed
+ */
+export const constantRoutes = [
   // tags-view刷新页面中间件
   {
     path: "/redirect",
@@ -37,14 +59,19 @@ const constantRoutes = [
 
   // 错误页面
   {
-    path: "/404",
-    component: () => import("@/views/404"),
+    path: "/403",
+    component: () => import("@/views/403"),
     hidden: true
   },
 
   {
-    path: "/401",
-    component: () => import("@/views/401"),
+    path: "/404",
+    component: () => import("@/views/404"),
+    hidden: true
+  },
+  {
+    path: "/500",
+    component: () => import("@/views/500"),
     hidden: true
   },
 
@@ -62,7 +89,7 @@ const constantRoutes = [
     redirect: "/dashboard/index",
     meta: {
       title: "首页",
-      icon: "el-icon-s-home"
+      icon: "table"
     },
     children: [
       {
@@ -80,7 +107,7 @@ const constantRoutes = [
 ];
 
 const createRouter = () =>
-  new VueRouter({
+  new Router({
     mode: "history", // 使用history模式，需要设置base路径
     base: process.env.BASE_URL,
     scrollBehavior: () => ({ y: 0 }),

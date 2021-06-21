@@ -11,7 +11,7 @@ export const asyncRouters = [
     redirect: "/member/memberManage",
     meta: {
       title: "会员",
-      icon: "el-icon-user-solid"
+      icon: "inbox"
     },
     alwaysShow: true,
     children: [
@@ -163,7 +163,7 @@ export const asyncRouters = [
     redirect: "/order/orderList",
     meta: {
       title: "订单",
-      icon: "el-icon-s-order"
+      icon: "user"
     },
     alwaysShow: false,
     children: [

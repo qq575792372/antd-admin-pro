@@ -21,19 +21,22 @@ import "./permission";
 // import vue-meta-info
 import MetaInfo from "vue-meta-info";
 
+// import vuescroll
+import VueScroll from "vuescroll";
+
 // use ant-design-vue
 Vue.use(Antd);
-
-// set vue-meta-info
+// use vue-meta-info
 Vue.use(MetaInfo);
+// use vuescroll
+Vue.use(VueScroll);
 
 //设置为false以阻止vue在启动时生成生产提示。
 Vue.config.productionTip = false;
 
 // create vue
 new Vue({
-  el: "#app",
   router,
   store,
   render: h => h(App)
-});
+}).$mount("#app");

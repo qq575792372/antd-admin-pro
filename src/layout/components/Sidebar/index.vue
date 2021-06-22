@@ -1,100 +1,117 @@
 <template>
   <div class="sidebar-container">
     <!-- logo -->
-    <!-- <Logo v-if="showLogo" :collapse="collapsed" /> -->
-    <a-menu mode="inline" theme="dark" :inline-collapsed="collapsed">
-      <template v-for="(route, index) in sidebarRoutes">
-        <!-- 非hidden的菜单渲染 -->
-        <template v-if="!route.hidden">
-          <!-- 只包含一层 -->
-          <template
-            v-if="
-              hasOneShowingChild(route.children, route) &&
-                (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-                !route.alwaysShow
-            "
-          >
-            <a-menu-item
-              v-if="onlyOneChild.meta && onlyOneChild.meta.title"
-              :key="resolvePath(onlyOneChild.path, route)"
+    <Logo v-if="showLogo" :collapse="isCollapsed" />
+    <div class="sidebar-scroll">
+      <a-menu
+        mode="inline"
+        theme="dark"
+        :selected-keys="currentSelectMenu"
+        :open-keys="openKeys"
+        @click="menuClick"
+        @openChange="onOpenChange"
+      >
+        <template v-for="item in sidebarRoutes">
+          <!-- 非hidden的菜单渲染 -->
+          <template v-if="!item.hidden">
+            <!-- 只包含一个children子菜单 -->
+            <template
+              v-if="
+                hasOneShowingChild(item.children, item) &&
+                  (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
+                  !item.alwaysShow
+              "
             >
-              <item
-                :icon="
-                  onlyOneChild.meta.icon || (route.meta && route.meta.icon)
-                "
-                :title="onlyOneChild.meta.title"
-              />
-              {{ text }}
-            </a-menu-item>
+              <a-menu-item
+                v-if="onlyOneChild.meta && onlyOneChild.meta.title"
+                :key="resolvePath(onlyOneChild.path, item)"
+              >
+                <app-link :to="resolvePath(onlyOneChild.path, item)">
+                  <a-icon
+                    :type="
+                      (onlyOneChild.meta && onlyOneChild.meta.icon) ||
+                        (item.meta && item.meta.icon)
+                    "
+                  />
+                  <span>{{ onlyOneChild.meta.title }}</span>
+                </app-link>
+              </a-menu-item>
+            </template>
+            <!-- children子菜单有多层 -->
+            <sub-menu
+              v-else
+              :menu-info="item"
+              :key="item.path"
+              :base-path="item.path"
+            />
           </template>
-
-          <!-- 多层子级 -->
-          <sub-menu
-            v-else
-            :menu-info="route"
-            :key="route.path"
-            :base-path="route.path"
-          />
         </template>
-      </template>
-    </a-menu>
+      </a-menu>
+    </div>
   </div>
 </template>
 <script>
 import { mapGetters, mapState } from "vuex";
-// import Logo from "./Logo";
-
 import path from "path";
 import { isExternal } from "@/utils/validate";
-import Item from "./Item";
-import AppLink from "./Link";
 import FixiOSBug from "./FixiOSBug";
+// 导入组件
+import Logo from "./Logo";
+import AppLink from "./Link";
+import SubMenu from "./subMenu";
+import BScroll from "better-scroll";
 
-import { Menu } from "ant-design-vue";
-const SubMenu = {
-  name: "SubMenu",
-  template: `
-    <a-sub-menu :key="menuInfo.key" v-bind="$props" v-on="$listeners">
-        <span slot="title">
-          <a-icon type="mail" /><span>{{ menuInfo.title }}</span>
-        </span>
-        <template v-for="item in menuInfo.children">
-          <a-menu-item v-if="!item.children" :key="item.key">
-            <a-icon type="pie-chart" />
-            <span>{{ item.title }}</span>
-          </a-menu-item>
-          <sub-menu v-else :key="item.key" :menu-info="item" />
-        </template>
-      </a-sub-menu>
-  `,
-  isSubMenu: true,
-  props: {
-    ...Menu.SubMenu.props,
-    menuInfo: Object,
-    basePath: String
-  }
-};
 export default {
   mixins: [FixiOSBug],
-  components: { Item, AppLink, "sub-menu": SubMenu },
-  
+  components: { SubMenu, AppLink, Logo },
   data() {
+    // 在此声明，不然会菜单递归渲染报错
     this.onlyOneChild = null;
     return {
-      collapsed: false,
-      showLogo: true,
-      text: "10"
+      isCollapsed: false,
+      openKeys: []
     };
   },
   computed: {
-    ...mapGetters(["sidebar", "sidebarRoutes"])
+    ...mapGetters(["sidebar", "sidebarRoutes"]),
+    currentSelectMenu() {
+      return [this.$route.path];
+    },
+    // 是否展示logo
+    showLogo() {
+      return true;
+    }
   },
   created() {
     console.log(111, this.sidebarRoutes);
   },
-  mounted() {},
+  mounted() {
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.betterScroll, {});
+    });
+  },
   methods: {
+    // 点击菜单触发事件
+    menuClick({ item, key, keyPath }) {
+      // length为1则说明没有子菜单
+      keyPath.length === 1 ? (this.openKeys = []) : "";
+    },
+    // 子菜单展开/关闭的回调
+    onOpenChange(openKeys) {
+      const latestOpenKey = openKeys.find(
+        key => this.openKeys.indexOf(key) === -1
+      );
+      this.openKeys = openKeys
+        ? openKeys
+        : latestOpenKey
+        ? [latestOpenKey]
+        : [];
+    },
+    // 包含子级
     hasOneShowingChild(children = [], parent) {
+      if (!children) {
+        children = [];
+      }
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false;
@@ -118,6 +135,7 @@ export default {
 
       return false;
     },
+    // 转换路径
     resolvePath(routePath, route) {
       if (isExternal(routePath)) {
         return routePath;
@@ -130,8 +148,15 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .sidebar-container {
-  height: 100%;
+  .sidebar-scroll {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  }
 }
 </style>

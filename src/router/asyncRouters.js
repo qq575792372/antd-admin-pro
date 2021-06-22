@@ -11,7 +11,7 @@ export const asyncRouters = [
     redirect: "/member/memberManage",
     meta: {
       title: "会员",
-      icon: "inbox"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -20,7 +20,8 @@ export const asyncRouters = [
         name: "memberManage",
         component: () => import("@/views/table/index"),
         meta: {
-          title: "会员管理"
+          title: "会员管理",
+          icon: "user"
         }
       },
       {
@@ -28,7 +29,8 @@ export const asyncRouters = [
         name: "memberLevel",
         component: () => import("@/views/table/index"),
         meta: {
-          title: "会员级别"
+          title: "会员级别",
+          icon: "user"
         }
       },
       {
@@ -36,7 +38,8 @@ export const asyncRouters = [
         name: "memberRecharge",
         component: () => import("@/views/table/index"),
         meta: {
-          title: "会员充值"
+          title: "会员充值",
+          icon: "user"
         }
       },
       {
@@ -57,7 +60,7 @@ export const asyncRouters = [
     redirect: "/goods/goodsManage",
     meta: {
       title: "商品",
-      icon: "el-icon-s-goods"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -95,7 +98,7 @@ export const asyncRouters = [
     redirect: "/promotion/seckillActivity",
     meta: {
       title: "促销",
-      icon: "el-icon-s-ticket"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -133,7 +136,7 @@ export const asyncRouters = [
     redirect: "/stock/stockList",
     meta: {
       title: "库存",
-      icon: "redis"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -163,7 +166,7 @@ export const asyncRouters = [
     redirect: "/order/orderList",
     meta: {
       title: "订单",
-      icon: "user"
+      icon: "table"
     },
     alwaysShow: false,
     children: [
@@ -185,7 +188,7 @@ export const asyncRouters = [
     redirect: "/platform/noticeManage",
     meta: {
       title: "平台",
-      icon: "el-icon-s-platform"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -223,7 +226,7 @@ export const asyncRouters = [
     redirect: "/statis/userManage",
     meta: {
       title: "统计",
-      icon: "el-icon-s-data"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -310,7 +313,7 @@ export const asyncRouters = [
     redirect: "/system/userManage",
     meta: {
       title: "系统",
-      icon: "el-icon-s-tools"
+      icon: "table"
     },
     alwaysShow: true,
     children: [
@@ -377,6 +380,6 @@ export const asyncRouters = [
   {
     path: "https://www.baidu.com",
     name: "linkBaidu",
-    meta: { title: "跳转百度", icon: "el-icon-share" }
+    meta: { title: "跳转百度", icon: "link" }
   }
 ];

@@ -31,6 +31,7 @@ module.exports = {
   assetsDir: "static",
   // lintOnSave: process.env.NODE_ENV === 'development',
   lintOnSave: false,
+  runtimeCompiler: true, // 支持运行时模板方式编译
   productionSourceMap: process.env.NODE_ENV === "development" ? true : false, // 开发环境会开启sourcemap
   devServer: {
     port: port,

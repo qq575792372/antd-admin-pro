@@ -10,7 +10,7 @@
   </div> -->
 
   <a-layout class="app-wrapper">
-    <a-layout-sider :trigger="null" collapsible>
+    <a-layout-sider v-model="isCollapsed" :trigger="null" collapsible>
       <Sidebar />
     </a-layout-sider>
     <a-layout>
@@ -35,12 +35,13 @@ export default {
   computed: {
     fixedHeader() {
       return false;
+    },
+    isCollapsed() {
+      return this.$store.getters.sidebar.opened;
     }
   },
   data() {
-    return {
-      collapsed: true
-    };
+    return {};
   },
   created() {}
 };

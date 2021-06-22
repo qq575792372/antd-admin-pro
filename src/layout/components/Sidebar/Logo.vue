@@ -67,7 +67,8 @@ export default {
       return variables;
     },
     sideTheme() {
-      return this.$store.state.settings.sideTheme;
+      // return this.$store.state.settings.sideTheme;
+      return "theme-dark";
     }
   }
 };
@@ -88,7 +89,7 @@ export default {
   width: 100%;
   height: 50px;
   line-height: 50px;
-  background: #2b2f3a;
+  background: #001529;
   text-align: center;
   overflow: hidden;
 

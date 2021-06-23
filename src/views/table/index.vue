@@ -1,23 +1,43 @@
 <template>
   <div class="app-container">
-    <!-- 查询操作 -->
-    <div class="header-container">
-      <!-- 查询条件 -->
-      <div class="search-box"></div>
-      <!-- 按钮操作 -->
-      <div class="operate-box"></div>
-    </div>
-
     <!-- 表格 -->
-    <div class="table-container">
-      表格
+    <div class="scroll-container" ref="bsScroll">
+      <vue-scrollbar :options="scrollbarOptions">
+        <div class="scroll-inner" v-for="(item, index) in 3" :key="index">
+          {{ index }}
+        </div>
+      </vue-scrollbar>
     </div>
-
-    <!-- 分页 -->
-    <div class="pagination-container"></div>
   </div>
 </template>
 
-<script></script>
+<script>
+import VueScrollbar from "@/components/VueScrollbar";
 
-<style lang="less" scoped></style>
+export default {
+  components: { VueScrollbar },
+  data() {
+    return {
+      scrollbarOptions: {
+        // maxHeight: 100
+      }
+    };
+  },
+  created() {},
+  mounted() {}
+};
+</script>
+
+<style lang="less" scoped>
+.scroll-container {
+  height: 500px;
+  overflow: hidden;
+  border: solid 1px red;
+
+  .scroll-inner {
+    background: #ddd;
+    margin: 3px;
+    padding: 6px 12px;
+  }
+}
+</style>

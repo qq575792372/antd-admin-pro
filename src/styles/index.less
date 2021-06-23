@@ -1,16 +1,25 @@
-@import './ant-design.less';
-@import './util.less';
+/**
+ * index.less
+ * 样式入口，引入其他所有基础style的定义，并封装一些常用的css
+ */
+
+@import "./variables.less";
+@import "./ant-design.less";
+@import "./transition.less";
+@import "./sidebar.less";
+@import "./util.less";
 
 body {
   height: 100%;
-  color: #303133;
-  overflow-x: hidden;
-  // background: #f7f8fa;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-size: 14px;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+
+label {
+  font-weight: 700;
 }
 
 html {
@@ -22,20 +31,32 @@ html {
   height: 100%;
 }
 
-/* 页面路由切换动画 */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all .35s;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
-.fade-transform-enter {
-  opacity: 0;
-  transform: translateX(30px);
+a:focus,
+a:active {
+  outline: none;
 }
 
-.fade-transform-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
+
+// no padding
+.no-padding {
+  padding: 0px !important;
 }
 
 /* 清除浮动 */
@@ -82,12 +103,17 @@ html {
 // 页面布局公用样式
 .app-container {
   padding: 15px;
-
+  margin: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 4px;
   /* 顶部 */
-  .header-container {}
+  .header-container {
+  }
 
   /* 表格 */
-  .table-container {}
+  .table-container {
+  }
 
   /* 分页 */
   .pagination-container {

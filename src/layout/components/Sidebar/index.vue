@@ -3,50 +3,53 @@
     <!-- logo -->
     <Logo v-if="showLogo" :collapse="isCollapsed" />
     <div class="sidebar-scroll">
-      <a-menu
-        mode="inline"
-        theme="dark"
-        :selected-keys="currentSelectMenu"
-        :open-keys="openKeys"
-        @click="menuClick"
-        @openChange="onOpenChange"
-      >
-        <template v-for="item in sidebarRoutes">
-          <!-- 非hidden的菜单渲染 -->
-          <template v-if="!item.hidden">
-            <!-- 只包含一个children子菜单 -->
-            <template
-              v-if="
-                hasOneShowingChild(item.children, item) &&
-                  (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-                  !item.alwaysShow
-              "
-            >
-              <a-menu-item
-                v-if="onlyOneChild.meta && onlyOneChild.meta.title"
-                :key="resolvePath(onlyOneChild.path, item)"
+      <vue-scrollbar>
+        <a-menu
+          mode="inline"
+          theme="dark"
+          :selected-keys="currentSelectMenu"
+          :open-keys="openKeys"
+          @click="menuClick"
+          @openChange="onOpenChange"
+        >
+          <template v-for="item in sidebarRoutes">
+            <!-- 非hidden的菜单渲染 -->
+            <template v-if="!item.hidden">
+              <!-- 只包含一个children子菜单 -->
+              <template
+                v-if="
+                  hasOneShowingChild(item.children, item) &&
+                    (!onlyOneChild.children ||
+                      onlyOneChild.noShowingChildren) &&
+                    !item.alwaysShow
+                "
               >
-                <app-link :to="resolvePath(onlyOneChild.path, item)">
-                  <a-icon
-                    :type="
-                      (onlyOneChild.meta && onlyOneChild.meta.icon) ||
-                        (item.meta && item.meta.icon)
-                    "
-                  />
-                  <span>{{ onlyOneChild.meta.title }}</span>
-                </app-link>
-              </a-menu-item>
+                <a-menu-item
+                  v-if="onlyOneChild.meta && onlyOneChild.meta.title"
+                  :key="resolvePath(onlyOneChild.path, item)"
+                >
+                  <app-link :to="resolvePath(onlyOneChild.path, item)">
+                    <a-icon
+                      :type="
+                        (onlyOneChild.meta && onlyOneChild.meta.icon) ||
+                          (item.meta && item.meta.icon)
+                      "
+                    />
+                    <span>{{ onlyOneChild.meta.title }}</span>
+                  </app-link>
+                </a-menu-item>
+              </template>
+              <!-- children子菜单有多层 -->
+              <sub-menu
+                v-else
+                :menu-info="item"
+                :key="item.path"
+                :base-path="item.path"
+              />
             </template>
-            <!-- children子菜单有多层 -->
-            <sub-menu
-              v-else
-              :menu-info="item"
-              :key="item.path"
-              :base-path="item.path"
-            />
           </template>
-        </template>
-      </a-menu>
+        </a-menu>
+      </vue-scrollbar>
     </div>
   </div>
 </template>
@@ -55,15 +58,16 @@ import { mapGetters, mapState } from "vuex";
 import path from "path";
 import { isExternal } from "@/utils/validate";
 import FixiOSBug from "./FixiOSBug";
+
 // 导入组件
+import VueScrollbar from "@/components/VueScrollbar";
 import Logo from "./Logo";
 import AppLink from "./Link";
 import SubMenu from "./subMenu";
-import BScroll from "better-scroll";
 
 export default {
   mixins: [FixiOSBug],
-  components: { SubMenu, AppLink, Logo },
+  components: { VueScrollbar, SubMenu, AppLink, Logo },
   data() {
     // 在此声明，不然会菜单递归渲染报错
     this.onlyOneChild = null;
@@ -152,11 +156,7 @@ export default {
 .sidebar-container {
   .sidebar-scroll {
     height: calc(100vh - 50px);
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
+    overflow: hidden;
   }
 }
 </style>

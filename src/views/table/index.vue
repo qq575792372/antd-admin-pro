@@ -1,27 +1,13 @@
 <template>
   <div class="app-container">
-    <!-- 表格 -->
-    <div class="scroll-container" ref="bsScroll">
-      <vue-scrollbar :options="scrollbarOptions">
-        <div class="scroll-inner" v-for="(item, index) in 3" :key="index">
-          {{ index }}
-        </div>
-      </vue-scrollbar>
-    </div>
+    this a page
   </div>
 </template>
 
 <script>
-import VueScrollbar from "@/components/VueScrollbar";
-
 export default {
-  components: { VueScrollbar },
   data() {
-    return {
-      scrollbarOptions: {
-        // maxHeight: 100
-      }
-    };
+    return {};
   },
   created() {},
   mounted() {}

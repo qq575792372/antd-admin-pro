@@ -1,5 +1,5 @@
 <template>
-  <vue-scroll :ops="scrollOptions">
+  <vue-scroll :ops="scrollOptions" ref="vueScrollRef">
     <slot />
   </vue-scroll>
 </template>
@@ -19,17 +19,14 @@ export default {
     return {
       scrollOptions: {
         vuescroll: {
-          wheelScrollDuration: 300 // 滚动动画延迟
+          wheelScrollDuration: 260 // 滚动动画延迟
         },
-        scrollPanel: {
-          easing: "easeInOutQuint" // 滚动动画
-        },
+        scrollPanel: {},
         // 滚动条背景配置
         rail: {},
         // 滚动条滑块配置
         bar: {
-          onlyShowBarOnScroll: false,
-          showDelay: 1000,
+          onlyShowBarOnScroll: false, // 是否只在滚动时候显示bar
           background: "#909399",
           opacity: 0.5
         }
@@ -43,6 +40,9 @@ export default {
     initOptions() {
       this.scrollOptions = { ...this.scrollOptions, ...this.options };
       console.log(" this.scrollOptions ", this.scrollOptions);
+      setTimeout(() => {
+        this.$refs.vueScrollRef.refresh();
+      }, 100);
     }
   }
 };

@@ -234,7 +234,8 @@ export const asyncRouters = [
         path: "saleStatis",
         name: "saleStatis",
         meta: {
-          title: "销售统计"
+          title: "销售统计",
+          icon: "table"
         },
         children: [
           {
@@ -242,7 +243,8 @@ export const asyncRouters = [
             name: "saleNum",
             component: () => import("@/views/table/index"),
             meta: {
-              title: "销售量统计"
+              title: "销售量统计",
+              icon: "table"
             }
           },
           {

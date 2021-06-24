@@ -6,6 +6,12 @@
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
+    <!-- 刷新当前页面 -->
+    <refresh-page
+      :is-active="sidebar.opened"
+      class="refresh-container"
+      @toggleClick="toggleSideBar"
+    />
 
     <!-- 面包屑导航 -->
     <breadcrumb class="breadcrumb-container" />
@@ -47,11 +53,13 @@
 import { mapGetters } from "vuex";
 import Hamburger from "@/components/Hamburger";
 import Breadcrumb from "@/components/Breadcrumb";
+import RefreshPage from "@/components/RefreshPage";
 
 export default {
   components: {
     Hamburger,
-    Breadcrumb
+    Breadcrumb,
+    RefreshPage
   },
   computed: {
     ...mapGetters(["sidebar"])
@@ -64,12 +72,14 @@ export default {
       console.log("退出");
       this.$confirm({
         title: "提示",
-        content: "确定退出当前登录账号吗？",
-        onOk() {
-          console.log("OK");
+        content: "确定退出登录吗？",
+        onOk: async () => {
+          // clcik ok
+          await this.$store.dispatch("user/logout");
+          this.$router.push(`/login?redirect=${this.$route.fullPath}`);
         },
-        onCancel() {
-          console.log("Cancel");
+        onCancel: () => {
+          // click no
         }
       });
     }
@@ -78,22 +88,23 @@ export default {
 </script>
 <style lang="less" scoped>
 .navbar {
-  height: 50px;
+  height: 60px;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
-  .hamburger-container {
-    line-height: 48px;
+  .hamburger-container,
+  .refresh-container {
     height: 100%;
     float: left;
     cursor: pointer;
-    transition: background 0.3s;
+    line-height: 58px;
+    transition: background 0.3s ease-in-out;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.025);
+      background: rgba(0, 0, 0, 0.035);
     }
   }
 
@@ -104,8 +115,7 @@ export default {
   .right-menu {
     float: right;
     height: 100%;
-    line-height: 50px;
-    cursor: pointer;
+    line-height: 60px;
     .avatar-title {
       font-size: 14px;
       color: #303133;
@@ -114,6 +124,7 @@ export default {
     }
     .avatar-container {
       margin-right: 20px;
+      cursor: pointer;
       .user-avatar {
         width: 36px;
         height: 36px;
@@ -130,6 +141,6 @@ export default {
 </style>
 <style lang="less">
 .overlay-menu {
-  top: 52px !important;
+  top: 62px !important;
 }
 </style>

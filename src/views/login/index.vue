@@ -8,36 +8,35 @@
       <div class="login-title">
         后台管理登录
       </div>
-      <el-form
+      <a-form-model
         ref="loginForm"
         :model="loginForm"
         :rules="loginRules"
         class="login-form"
-        label-position="left"
+        labelAlign="left"
       >
         <!-- 用户名 -->
-        <el-form-item prop="username">
-          <el-input
-            ref="username"
+        <a-form-model-item prop="username">
+          <a-input
             v-model="loginForm.username"
             placeholder="输入用户名"
-            name="username"
             type="text"
+            size="large"
             tabindex="1"
             auto-complete="on"
           >
-            <i slot="prefix" class="el-icon-user-solid"></i>
-          </el-input>
-        </el-form-item>
+            <a-icon slot="prefix" type="user" />
+          </a-input>
+        </a-form-model-item>
         <!-- 密码 -->
-        <el-form-item prop="password">
-          <el-input
+        <a-form-model-item prop="password">
+          <a-input
             :key="passwordType"
             ref="password"
             v-model="loginForm.password"
             :type="passwordType"
             placeholder="输入密码"
-            name="password"
+            size="large"
             tabindex="2"
           >
             <svg-icon slot="prefix" icon-class="password" />
@@ -48,22 +47,21 @@
               style=" cursor: pointer; color:#606266;user-select:none;"
               :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
             />
-          </el-input>
-        </el-form-item>
+          </a-input>
+        </a-form-model-item>
         <!-- 验证码 -->
-        <el-form-item prop="validcode">
+        <a-form-model-item prop="validcode">
           <div class="valid-box">
             <div class="valid-input">
-              <el-input
-                ref="validcode"
+              <a-input
                 v-model="loginForm.validcode"
                 placeholder="输入验证码"
-                name="validcode"
+                size="large"
                 type="text"
                 tabindex="3"
               >
                 <svg-icon slot="prefix" icon-class="validCode" />
-              </el-input>
+              </a-input>
             </div>
             <img
               class="valid-img"
@@ -71,23 +69,22 @@
               @click="handleChangeValidImageUrl"
             />
           </div>
-        </el-form-item>
+        </a-form-model-item>
         <!-- 登录 -->
-        <el-button
+        <a-button
           :loading="loginLoading"
           type="primary"
           tabindex="4"
-          style="width:100%; margin-bottom:15px; margin-top:10px; border-radius:6px;"
+          size="large"
+          style="width:100%; margin-bottom:15px; font-size:14px; margin-top:10px; border-radius:6px;"
           @click.native.prevent="handleLogin"
-          >{{ loginLoading ? "登录中.." : "登录" }}</el-button
+          >{{ loginLoading ? "登录中.." : "登录" }}</a-button
         >
-      </el-form>
+      </a-form-model>
       <!-- 去注册和忘记密码 -->
       <div class="login-operate">
-        <el-link size="small" :underline="false" type="primary">去注册</el-link>
-        <el-link size="small" :underline="false" type="primary"
-          >忘记密码?</el-link
-        >
+        <a>去注册</a>
+        <a>忘记密码?</a>
       </div>
       <!-- 底部提示 -->
       <div class="login-tips">
@@ -270,7 +267,7 @@ export default {
   // 背景图片，加入高斯模糊
   .login-bg {
     position: absolute;
-    background: url("../../assets/login/login_bg_2.jpg") no-repeat;
+    background: url("../../assets/login/login_bg_1.jpg") no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -306,16 +303,14 @@ export default {
       font-weight: bold;
       text-align: center;
       color: #303133;
-      padding: 20px;
+      height: 64px;
+      line-height: 64px;
       border-bottom: solid 1px #e8eaec;
     }
 
     // 登录表单
     .login-form {
       padding: 25px 20px 0px 20px;
-      .el-form-item {
-        margin-bottom: 26px;
-      }
       // 验证码样式
       .valid-box {
         display: flex;
@@ -359,6 +354,22 @@ export default {
     font-size: 12px;
     letter-spacing: 1px;
     z-index: 10;
+  }
+}
+</style>
+<style lang="less">
+// ant design登录表单样式调整
+.login-form {
+  .ant-input-lg {
+    font-size: 14px;
+  }
+  .ant-form-explain {
+    font-size: 12px;
+    position: relative;
+    bottom: -1px;
+  }
+  .ant-input-prefix {
+    color: #808695;
   }
 }
 </style>

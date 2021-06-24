@@ -39,7 +39,7 @@ export default {
         item => item.meta && item.meta.title
       );
       const first = matched[0];
-      console.log(333, first);
+
       // 如果当前路由是非首页，则面包屑最开始追加首页的链接
       if (!this.isDashboard(first)) {
         matched = [
@@ -82,7 +82,7 @@ export default {
   &.ant-breadcrumb {
     display: inline-block;
     font-size: 14px;
-    line-height: 50px;
+    line-height: 60px;
     margin-left: 8px;
     .no-redirect {
       color: #97a8be;

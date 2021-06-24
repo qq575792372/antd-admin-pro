@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     this a page
+    <a-button @click="handleClick">切换路由</a-button>
   </div>
 </template>
 
@@ -10,7 +11,14 @@ export default {
     return {};
   },
   created() {},
-  mounted() {}
+  mounted() {},
+  methods: {
+    handleClick() {
+      this.$router.push({
+        path: "/member/memberLevel"
+      });
+    }
+  }
 };
 </script>
 

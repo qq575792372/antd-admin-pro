@@ -6,6 +6,7 @@ import getters from "./getters";
 
 // modules
 import app from "./modules/app";
+import settings from "./modules/settings";
 import user from "./modules/user";
 import permission from "./modules/permission";
 
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
   strict: false,
   modules: {
     app,
+    settings,
     user,
     permission
   },

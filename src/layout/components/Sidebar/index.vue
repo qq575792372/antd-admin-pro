@@ -1,14 +1,14 @@
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container" :class="{ 'has-logo': showLogo }">
     <!-- logo -->
-    <Logo v-if="showLogo" :collapse="isCollapsed" />
+    <Logo v-if="showLogo" :collapse="isCollapse" />
     <div class="sidebar-scroll">
       <vue-scrollbar>
         <a-menu
           mode="inline"
           theme="dark"
-          :selected-keys="currentSelectMenu"
-          :open-keys="openKeys"
+          :selectedKeys="currentSelectMenu"
+          :openKeys="openKeys"
           @click="menuClick"
           @openChange="onOpenChange"
         >
@@ -30,12 +30,18 @@
                 >
                   <app-link :to="resolvePath(onlyOneChild.path, item)">
                     <a-icon
+                      v-if="
+                        (onlyOneChild.meta && onlyOneChild.meta.icon) ||
+                          (item.meta && item.meta.icon)
+                      "
                       :type="
                         (onlyOneChild.meta && onlyOneChild.meta.icon) ||
                           (item.meta && item.meta.icon)
                       "
                     />
-                    <span>{{ onlyOneChild.meta.title }}</span>
+                    <span>
+                      {{ onlyOneChild.meta.title }}
+                    </span>
                   </app-link>
                 </a-menu-item>
               </template>
@@ -64,6 +70,7 @@ import VueScrollbar from "@/components/VueScrollbar";
 import Logo from "./Logo";
 import AppLink from "./Link";
 import SubMenu from "./subMenu";
+import { match } from "assert";
 
 export default {
   mixins: [FixiOSBug],
@@ -72,46 +79,84 @@ export default {
     // 在此声明，不然会菜单递归渲染报错
     this.onlyOneChild = null;
     return {
-      isCollapsed: false,
       openKeys: []
     };
   },
   computed: {
     ...mapGetters(["sidebar", "sidebarRoutes"]),
+    // 当前菜单选择的
     currentSelectMenu() {
       return [this.$route.path];
     },
     // 是否展示logo
     showLogo() {
-      return true;
+      return this.$store.state.settings.sidebarLogo;
+    },
+    // 是否折叠菜单
+    isCollapse() {
+      return !this.$store.getters.sidebar.opened;
+    },
+    // root菜单列表
+    rootMenuKeys() {
+      let rootKeys = [];
+      this.sidebarRoutes
+        .filter(item => !item.hidden && item.path !== "/")
+        .map(item => {
+          rootKeys.push(item.path);
+        });
+      return rootKeys;
+    }
+  },
+  watch: {
+    // 监听路由的变化
+    $route(to, from) {
+      this.initOpenKeys();
     }
   },
   created() {
-    console.log(111, this.sidebarRoutes);
+    this.initOpenKeys();
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.betterScroll, {});
-    });
-  },
+  mounted() {},
   methods: {
-    // 点击菜单触发事件
+    /**
+     * 初始化菜单，默认打开并选中当前路由对应的菜单
+     */
+    initOpenKeys() {
+      const openKeysArr = this.$route.path.split("/");
+      openKeysArr.shift();
+      openKeysArr.pop();
+      this.openKeys = [];
+      openKeysArr.forEach((item, index) => {
+        let path = item;
+        if (index == 0) {
+          path = "/" + item;
+        }
+        this.openKeys.push(path);
+      });
+    },
+    /**
+     * 点击菜单触发事件
+     */
     menuClick({ item, key, keyPath }) {
       // length为1则说明没有子菜单
       keyPath.length === 1 ? (this.openKeys = []) : "";
     },
-    // 子菜单展开/关闭的回调
+    /**
+     * 子菜单展开/关闭的回调
+     */
     onOpenChange(openKeys) {
       const latestOpenKey = openKeys.find(
         key => this.openKeys.indexOf(key) === -1
       );
-      this.openKeys = openKeys
-        ? openKeys
-        : latestOpenKey
-        ? [latestOpenKey]
-        : [];
+      if (this.rootMenuKeys.indexOf(latestOpenKey) === -1) {
+        this.openKeys = openKeys;
+      } else {
+        this.openKeys = latestOpenKey ? [latestOpenKey] : [];
+      }
     },
-    // 包含子级
+    /**
+     * 判断是否包含多个子级菜单
+     */
     hasOneShowingChild(children = [], parent) {
       if (!children) {
         children = [];
@@ -139,7 +184,9 @@ export default {
 
       return false;
     },
-    // 转换路径
+    /**
+     * 转换路径
+     */
     resolvePath(routePath, route) {
       if (isExternal(routePath)) {
         return routePath;
@@ -155,7 +202,7 @@ export default {
 <style lang="less">
 .sidebar-container {
   .sidebar-scroll {
-    height: calc(100vh - 50px);
+    height: calc(100vh - 60px);
     overflow: hidden;
   }
 }

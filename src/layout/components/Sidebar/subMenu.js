@@ -7,7 +7,7 @@ const SubMenu = {
   template: `
     <a-sub-menu :key="menuInfo.path" v-bind="$props" v-on="$listeners">
       <span slot="title">
-        <a-icon class="anticon" :type="menuInfo.meta && menuInfo.meta.icon" />
+        <a-icon :type="menuInfo.meta && menuInfo.meta.icon" />
         <span>{{ menuInfo.meta.title }}</span>
       </span>
       <template v-for="item in menuInfo.children">
@@ -17,7 +17,7 @@ const SubMenu = {
             <span>{{ item.meta.title }}</span>
           </app-link>
         </a-menu-item>
-        <!-- 递归组件编辑菜单 -->
+        <!-- 递归子菜单 -->
         <sub-menu
           v-else
           :key="item.path"

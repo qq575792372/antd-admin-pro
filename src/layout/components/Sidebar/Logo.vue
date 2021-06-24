@@ -76,7 +76,7 @@ export default {
 
 <style lang="less" scoped>
 .sidebarLogoFade-enter-active {
-  transition: opacity 1.5s;
+  transition: opacity 1s;
 }
 
 .sidebarLogoFade-enter,
@@ -93,18 +93,19 @@ export default {
   text-align: center;
   overflow: hidden;
 
-  & .sidebar-logo-link {
+  .sidebar-logo-link {
     height: 100%;
     width: 100%;
+    display: inline-block;
 
-    & .sidebar-logo {
+    .sidebar-logo {
       max-width: 32px;
       max-height: 32px;
       vertical-align: middle;
       margin-right: 12px;
     }
 
-    & .sidebar-title {
+    .sidebar-title {
       display: inline-block;
       margin: 0;
       color: #fff;

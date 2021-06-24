@@ -20,12 +20,12 @@ export default {
     // svg图标类名称，也可以支持在线svg图标地址
     iconClass: {
       type: String,
-      required: true,
+      required: true
     },
     className: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   computed: {
     isExternal() {
@@ -44,10 +44,10 @@ export default {
     styleExternalIcon() {
       return {
         mask: `url(${this.iconClass}) no-repeat 50% 50%`,
-        "-webkit-mask": `url(${this.iconClass}) no-repeat 50% 50%`,
+        "-webkit-mask": `url(${this.iconClass}) no-repeat 50% 50%`
       };
-    },
-  },
+    }
+  }
 };
 </script>
 

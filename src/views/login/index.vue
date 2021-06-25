@@ -230,7 +230,7 @@ export default {
               setTimeout(() => {
                 this.loginLoading = false;
               }, 300);
-              if (res.code == "0000") {
+              if (res.code == 0) {
                 this.$router.push({ path: this.redirect || "/" });
               } else {
                 this.$message({

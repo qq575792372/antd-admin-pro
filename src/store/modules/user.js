@@ -35,7 +35,7 @@ const actions = {
       // set token
       commit("SET_TOKEN", 123);
       setToken(123);
-      resolve({ code: "0000", message: "OK" });
+      resolve({ code: 0, message: "OK" });
 
       // 请求后台登录
       // login({
@@ -45,7 +45,7 @@ const actions = {
       // })
       //   .then(response => {
       //     const { code, data } = response;
-      //     if (code == "0000") {
+      //     if (code == 0) {
       //       // set user name
       //       commit("SET_NAME", username.trim());
       //       sessionStorage.setItem("USER_NAME", username.trim());

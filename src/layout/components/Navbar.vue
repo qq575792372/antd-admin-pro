@@ -18,7 +18,7 @@
 
     <!-- 右侧个人登录信息 -->
     <div class="right-menu">
-      <span class="avatar-title">张三</span>
+      <span class="avatar-title">{{ name }}</span>
 
       <a-dropdown
         class="avatar-container"
@@ -62,7 +62,7 @@ export default {
     RefreshPage
   },
   computed: {
-    ...mapGetters(["sidebar"])
+    ...mapGetters(["sidebar", "name"])
   },
   methods: {
     toggleSideBar() {

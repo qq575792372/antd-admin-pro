@@ -5,6 +5,7 @@ const {
   showSettings,
   topNav,
   tagsView,
+  fixedSidebar,
   fixedHeader,
   sidebarLogo,
   dynamicTitle
@@ -22,6 +23,10 @@ const state = {
     storageSetting.fixedHeader === undefined
       ? fixedHeader
       : storageSetting.fixedHeader,
+  fixedSidebar:
+    storageSetting.fixedSidebar === undefined
+      ? fixedSidebar
+      : storageSetting.fixedSidebar,
   sidebarLogo:
     storageSetting.sidebarLogo === undefined
       ? sidebarLogo

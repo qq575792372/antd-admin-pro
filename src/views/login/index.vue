@@ -50,7 +50,7 @@
           </a-input>
         </a-form-model-item>
         <!-- 验证码 -->
-        <a-form-model-item prop="validcode">
+        <a-form-model-item prop="validcode" ref="validcode" :auto-link="false">
           <div class="valid-box">
             <div class="valid-input">
               <a-input
@@ -59,6 +59,16 @@
                 size="large"
                 type="text"
                 tabindex="3"
+                @blur="
+                  () => {
+                    $refs.validcode.onFieldBlur();
+                  }
+                "
+                @change="
+                  () => {
+                    $refs.validcode.onFieldChange();
+                  }
+                "
               >
                 <svg-icon slot="prefix" icon-class="validCode" />
               </a-input>

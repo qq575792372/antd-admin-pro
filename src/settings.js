@@ -20,19 +20,14 @@ module.exports = {
   fixedHeader: true,
 
   /**
+   * 是否固定左侧菜单
+   */
+  fixedSidebar: true,
+
+  /**
    * 是否展示右侧布局配置panel页面，在头部右侧个人信息布局设置控制
    */
   showSettings: false,
-
-  /**
-   * 是否显示顶部导航
-   */
-  topNav: false,
-
-  /**
-   * 是否显示 tagsView
-   */
-  tagsView: true,
 
   /**
    * 是否显示左侧菜单logo

@@ -199,11 +199,3 @@ export default {
   }
 };
 </script>
-<style lang="less">
-.sidebar-container {
-  .sidebar-scroll {
-    height: calc(100vh - 60px);
-    overflow: hidden;
-  }
-}
-</style>

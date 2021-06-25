@@ -75,20 +75,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.sidebarLogoFade-enter-active {
-  transition: opacity 1s;
+.sidebarLogoFade-enter-active,
+.sidebarLogoFade-leave-active {
+  transition: width 0.3s;
 }
 
 .sidebarLogoFade-enter,
-.sidebarLogoFade-leave-to {
-  opacity: 0;
+.sidebarLogoFade-leave-active {
+  width: 80px;
 }
 
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
   background: #001529;
   text-align: center;
   overflow: hidden;

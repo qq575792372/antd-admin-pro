@@ -28,7 +28,7 @@ const mockListData = Mock.mock({
       realName: "@cname()",
       age: "@integer(10,99)",
       "sex|1": [0, 1, 2], // 0：位置；1：男；2：女
-      headUrl: "@dataImage('20x20','头像')",
+      headUrl: "@image('20x20','头像')",
       birthDay: "@date()",
       email: "@email()",
       "status|1": [0, 1], // 账号状态，0：正常；1：禁用
@@ -82,7 +82,11 @@ const addUser = {
     // 添加数据
     list.unshift({
       id: Mock.Random.guid(),
-      realName: params.realName
+      realName: params.realName,
+      age: params.age,
+      sex: params.sex,
+      birthDay: params.birthDay,
+      email: params.email
     });
     // 组装返回的数据结构
     return {
@@ -125,6 +129,7 @@ const updateUser = {
     };
   }
 };
+
 /**
  * 根据id删除
  */
@@ -151,6 +156,7 @@ const deleteUser = {
     };
   }
 };
+
 /**
  * 查询详情
  */
@@ -163,15 +169,16 @@ const getDetail = {
     // 获取查询参数
     const { id } = config.query;
     // 获取满足条件的记录
-    const records = list.filter(item => item.id == id);
+    const records = list.filter(item => item.id == id)[0];
     // 组装返回的数据结构
     return {
       code: 0,
-      data: records[0],
+      data: records,
       message: "ok",
       timestamp: Date.now()
     };
   }
 };
+
 // export
 module.exports = [getList, addUser, updateUser, deleteUser, getDetail];

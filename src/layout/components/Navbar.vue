@@ -100,6 +100,7 @@ export default {
     float: left;
     cursor: pointer;
     line-height: 58px;
+    color: #515a6e;
     transition: background 0.3s ease-in-out;
     -webkit-tap-highlight-color: transparent;
 

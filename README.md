@@ -2,10 +2,10 @@
 
 ```bash
 # 克隆项目
-git clone https://gitee.com/qq1020431880/vue_antd_template.git
+git clone https://gitee.com/qq1020431880/vue-antd-admin.git
 
 # 进入项目目录
-cd vue_antd_template
+cd vue-antd-admin
 
 # 安装依赖
 npm install
@@ -22,7 +22,6 @@ npm start
 
 服务启动成功后，浏览器访问 [http://localhost:9000](http://localhost:9000)
 
-
 ## 环境
 
 ```bash
@@ -34,7 +33,6 @@ npm start
 ```
 
 环境配置可以参考 Vue CLI 官网的 [模式和环境变量](https://cli.vuejs.org/zh/guide/mode-and-env.html)，新版本的环境是独立的 **.env[model]** 文件形式来配置
-
 
 ## 发布
 
@@ -48,7 +46,6 @@ npm run build:stage
 # 构建生产环境
 npm run build:prod
 ```
-
 
 ## 其它
 

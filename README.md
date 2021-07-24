@@ -2,16 +2,18 @@
 
 ```bash
 # 克隆项目
-git clone https://gitee.com/qq1020431880/vue-antd-admin.git
+git clone https://gitee.com/qq1020431880/antd-admin-pro.git
 
 # 进入项目目录
-cd vue-antd-admin
+cd antd-admin-pro
 
 # 安装依赖
 npm install
 
 # 建议不要直接使用 cnpm 安装以来，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
 npm install --registry=https://registry.npm.taobao.org
+# 你也可以预先设置全局的npm淘宝镜像
+npm config set registry https://registry.npm.taobao.org
 
 # 启动服务
 npm run dev
@@ -66,4 +68,4 @@ npm run lint
 npm run lint -- --fix
 ```
 
-> 本模板参考 [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 改造，更多使用信息参考 [使用文档](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/)
+> 本框架主要参考开源框架[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) 改造，你也可以阅读[vue-element-admin官方使用文档](https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/)查看更多配置信息

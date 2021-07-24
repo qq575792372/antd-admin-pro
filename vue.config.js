@@ -8,7 +8,7 @@ function resolve(dir) {
 }
 
 // page title
-const name = defaultSettings.title || "Vue Antd Admin Template";
+const name = defaultSettings.title || "antd-admin-pro";
 
 // dev port
 // you can change the port > npm run dev --port=8000
